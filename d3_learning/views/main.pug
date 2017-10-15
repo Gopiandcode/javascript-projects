@@ -1,0 +1,66 @@
+html
+    head
+        title= "D3.js learning"
+        link(
+            rel="stylesheet"
+            href="/static/css/main.css"
+        )
+
+    body
+
+        div(class="container")
+            h2= "Weather Forecast: "
+                span(class="small")= "orlando"
+            table(class="table table-hover")
+                thead
+                    tr(class="head")
+                        th(scope="col",class="head-date")="Date"
+                        th(scope="col",class="head-temp-low")="Low"
+                        th(scope="col",class="head-temp-high")="High"
+                tbody
+                    tr(class="day")
+                        th(scope="row", class="day-date")="03/30/2017"
+                        td(class="day-low")
+                            span(class="temp")="87"
+                        td(class="day-high")
+                            span(class="temp")="68"
+                    tr(class="day")
+                        th(scope="row", class="day-date")="04/01/2017"
+                        td(class="day-low")
+                            span(class="temp")="64"
+                        td(class="day-high")
+                            span(class="temp")="85"
+                    tr(class="day")
+                        th(scope="row", class="day-date")="04/02/2017"
+                        td(class="day-low")
+                            span(class="temp")="65"
+                        td(class="day-high")
+                            span(class="temp")="89"
+                    tr(class="day")
+                        th(scope="row", class="day-date")="04/03/2017"
+                        td(class="day-low")
+                            span(class="temp")="69"
+                        td(class="day-high")
+                            span(class="temp")="90"
+
+                    tr(class="day")
+                        th(scope="row", class="day-date")="04/04/2017"
+                        td(class="day-low")
+                            span(class="temp")="65"
+                        td(class="day-high")
+                            span(class="temp")="88"
+
+            h2= "SVG Graphics"
+                div(id="viz")
+
+
+        script(
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+        )
+        script(
+            src="https://d3js.org/d3.v4.js"
+        )
+        script(
+            src='/static/js/main.js'
+        )
+        
