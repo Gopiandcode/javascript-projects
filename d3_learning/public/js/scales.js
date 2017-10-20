@@ -76,6 +76,7 @@ var scatter_dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95], [410
 
 var width = 1280;
 var height = 720;
+var padding = 20;
 
 var scale = d3.scaleLinear();
 var scatter_xscale = d3.scaleLinear();
@@ -88,12 +89,12 @@ scatter_xscale.domain([d3.min(scatter_dataset, function (d) {
     return d[0];
 }), d3.max(scatter_dataset, function (d) {
     return d[0];
-})]).range([0, width]);
+})]).range([padding, width - padding * 2]);
 scatter_yscale.domain([d3.min(scatter_dataset, function (d) {
     return d[1];
 }), d3.max(scatter_dataset, function (d) {
     return d[1];
-})]).range([0, height]);
+})]).range([height - padding, padding]);
 scatter_rscale.domain([d3.min(scatter_dataset, function (d) {
     return d[0];
 }), d3.max(scatter_dataset, function (d) {
@@ -109,6 +110,13 @@ svg.selectAll("circle").data(scatter_dataset).enter().append("circle").attr("cx"
 }).attr("r", function (d) {
     return scatter_rscale(d[0]);
 }).attr("fill", "blue");
+svg.selectAll("text").data(scatter_dataset).enter().append("text").text(function (d) {
+    return d[0] + ", " + d[1];
+}).attr("x", function (d) {
+    return scatter_xscale(d[0]);
+}).attr("y", function (d) {
+    return scatter_yscale(d[1]);
+}).attr("fill", "red");
 
 /***/ })
 

@@ -3,6 +3,7 @@ let scatter_dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95], [410
 
 let width = 1280;
 let height = 720;
+let padding = 20;
 
 let scale = d3.scaleLinear();
 let scatter_xscale = d3.scaleLinear();
@@ -12,8 +13,8 @@ let scatter_rscale = d3.scaleLinear();
 scale.domain([d3.min(dataset), d3.max(dataset)]).range([0, width]);
 
 
-scatter_xscale.domain([d3.min(scatter_dataset, (d) => {return d[0];}), d3.max(scatter_dataset, (d) => {return d[0];})]).range([0, width]);
-scatter_yscale.domain([d3.min(scatter_dataset, (d) => {return d[1];}), d3.max(scatter_dataset, (d) => {return d[1];})]).range([0, height]);
+scatter_xscale.domain([d3.min(scatter_dataset, (d) => {return d[0];}), d3.max(scatter_dataset, (d) => {return d[0];})]).range([padding, width-padding*2]);
+scatter_yscale.domain([d3.min(scatter_dataset, (d) => {return d[1];}), d3.max(scatter_dataset, (d) => {return d[1];})]).range([height-padding, padding]);
 scatter_rscale.domain([d3.min(scatter_dataset, (d) => {return d[0];}), d3.max(scatter_dataset, (d) => {return d[0];})]).range([0, 50]);
 
 
@@ -24,3 +25,7 @@ svg.selectAll("circle").data(scatter_dataset).enter().append("circle")
     .attr("cy", (d) => {return scatter_yscale(d[1]);})
     .attr("r", (d) => {return scatter_rscale(d[0]);})
     .attr("fill", "blue");
+svg.selectAll("text").data(scatter_dataset).enter().append("text").text((d) => { return d[0] + ", " + d[1];})
+    .attr("x", (d) => {return scatter_xscale(d[0]);})
+    .attr("y", (d) => {return scatter_yscale(d[1]);})
+    .attr("fill", "red");
