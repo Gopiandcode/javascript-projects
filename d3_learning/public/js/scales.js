@@ -101,6 +101,9 @@ scatter_rscale.domain([d3.min(scatter_dataset, function (d) {
     return d[0];
 })]).range([0, 50]);
 
+var scatter_xaxis = d3.axisBottom(scatter_xscale).ticks(5);
+var scatter_yaxis = d3.axisLeft(scatter_yscale).ticks(5);
+
 var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
 
 svg.selectAll("circle").data(scatter_dataset).enter().append("circle").attr("cx", function (d) {
@@ -117,6 +120,9 @@ svg.selectAll("text").data(scatter_dataset).enter().append("text").text(function
 }).attr("y", function (d) {
     return scatter_yscale(d[1]);
 }).attr("fill", "red");
+
+svg.append("g").attr("class", "axis").attr("transform", "translate(0," + (height - padding) + ")").call(scatter_xaxis);
+svg.append("g").attr("class", "axis").attr("transform", "translate(" + padding + ", 0)").call(scatter_yaxis);
 
 /***/ })
 

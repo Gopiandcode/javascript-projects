@@ -10,6 +10,8 @@ let scatter_xscale = d3.scaleLinear();
 let scatter_yscale = d3.scaleLinear();
 let scatter_rscale = d3.scaleLinear();
 
+
+
 scale.domain([d3.min(dataset), d3.max(dataset)]).range([0, width]);
 
 
@@ -17,6 +19,9 @@ scatter_xscale.domain([d3.min(scatter_dataset, (d) => {return d[0];}), d3.max(sc
 scatter_yscale.domain([d3.min(scatter_dataset, (d) => {return d[1];}), d3.max(scatter_dataset, (d) => {return d[1];})]).range([height-padding, padding]);
 scatter_rscale.domain([d3.min(scatter_dataset, (d) => {return d[0];}), d3.max(scatter_dataset, (d) => {return d[0];})]).range([0, 50]);
 
+
+let scatter_xaxis = d3.axisBottom(scatter_xscale).ticks(5);
+let scatter_yaxis = d3.axisLeft(scatter_yscale).ticks(5);
 
 let svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
 
@@ -29,3 +34,14 @@ svg.selectAll("text").data(scatter_dataset).enter().append("text").text((d) => {
     .attr("x", (d) => {return scatter_xscale(d[0]);})
     .attr("y", (d) => {return scatter_yscale(d[1]);})
     .attr("fill", "red");
+
+
+
+    svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + (height-padding) + ")")
+    .call(scatter_xaxis);
+    svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", "translate(" + padding + ", 0)")
+    .call(scatter_yaxis);

@@ -35,7 +35,9 @@ module.exports = function (grunt) {
                     }*/
                 },
                 files: {
-                    './public/css/main.css': './src/sass/main.sass'
+                    './public/css/main.css': './src/sass/main.sass',
+
+                    './public/css/scales.css': './src/sass/scales.sass'
                 }
             }
         },
