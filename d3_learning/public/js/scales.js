@@ -72,7 +72,15 @@
 
 
 var dataset = [100, 200, 300, 400, 500];
-var scatter_dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95], [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
+//let scatter_dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95], [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
+var scatter_dataset = [];
+
+for (var i = 0; i < 100; i++) {
+    var numA = Math.floor(Math.random() * 100);
+    var numB = Math.floor(Math.random() * 100);
+
+    scatter_dataset.push([numA, numB]);
+}
 
 var width = 1280;
 var height = 720;
@@ -89,17 +97,17 @@ scatter_xscale.domain([d3.min(scatter_dataset, function (d) {
     return d[0];
 }), d3.max(scatter_dataset, function (d) {
     return d[0];
-})]).range([padding, width - padding * 2]);
+})]).range([padding * 3, width - padding * 3]);
 scatter_yscale.domain([d3.min(scatter_dataset, function (d) {
     return d[1];
 }), d3.max(scatter_dataset, function (d) {
     return d[1];
-})]).range([height - padding, padding]);
+})]).range([height - padding * 3, padding * 3]);
 scatter_rscale.domain([d3.min(scatter_dataset, function (d) {
     return d[0];
 }), d3.max(scatter_dataset, function (d) {
     return d[0];
-})]).range([0, 50]);
+})]).range([2, 20]);
 
 var scatter_xaxis = d3.axisBottom(scatter_xscale).ticks(5);
 var scatter_yaxis = d3.axisLeft(scatter_yscale).ticks(5);
