@@ -60,88 +60,56 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */
+/******/ ({
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var width = 1200;
-var height = 200;
-var barPadding = 1;
+var dataset = [100, 200, 300, 400, 500];
+var scatter_dataset = [[5, 20], [480, 90], [250, 50], [100, 33], [330, 95], [410, 12], [475, 44], [25, 67], [85, 21], [220, 88]];
 
-var dataset = [];
-var scatter_dataset = [];
+var width = 1280;
+var height = 720;
 
-for (var i = 0; i < 20; i++) {
-    dataset.push(Math.floor(Math.random() * 90));
-    scatter_dataset.push([Math.floor(Math.random() * width), Math.floor(Math.random() * height)]);
-}
+var scale = d3.scaleLinear();
+var scatter_xscale = d3.scaleLinear();
+var scatter_yscale = d3.scaleLinear();
+var scatter_rscale = d3.scaleLinear();
 
-var svg = d3.select("body").append("svg");
-svg.attr("width", width).attr("height", height);
+scale.domain([d3.min(dataset), d3.max(dataset)]).range([0, width]);
 
-var circles = svg.selectAll("circle").data(dataset).enter().append("circle");
+scatter_xscale.domain([d3.min(scatter_dataset, function (d) {
+    return d[0];
+}), d3.max(scatter_dataset, function (d) {
+    return d[0];
+})]).range([0, width]);
+scatter_yscale.domain([d3.min(scatter_dataset, function (d) {
+    return d[1];
+}), d3.max(scatter_dataset, function (d) {
+    return d[1];
+})]).range([0, height]);
+scatter_rscale.domain([d3.min(scatter_dataset, function (d) {
+    return d[0];
+}), d3.max(scatter_dataset, function (d) {
+    return d[0];
+})]).range([0, 50]);
 
-circles.attr("cx", function (d, i) {
-    return i * 80 + 25;
-}).attr("cy", height / 2).attr("r", function (d) {
-    return d;
-});
-
-circles.attr("fill", "yellow").attr("stroke", "orange").attr("stroke-width", function (d) {
-    return d / 2;
-});
-
-svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
-
-svg.selectAll("rect").data(dataset).enter().append("rect").attr("x", function (d, i) {
-    return i * (width / dataset.length);
-}).attr("y", function (d) {
-    return height - d;
-}).attr("width", width / dataset.length - barPadding).attr("height", function (d) {
-    return d;
-}).attr("fill", function (d) {
-    return "rgb(0, 0, " + d * 10 + ")";
-});
-
-svg.selectAll("text").data(dataset).enter().append("text").text(function (d) {
-    return d;
-}).attr("x", function (d, i) {
-    return i * (width / dataset.length) + (width / dataset.length - barPadding) / 2;
-}).attr("y", function (d, i) {
-    return height - d + 14;
-}).attr('font-family', 'sans-serif').attr('font-size', '11px').attr('fill', 'white').attr("text-anchor", "middle");
-
-// d3.csv("static/food.csv", function(data) {
-//     console.log(data);
-//     d3.select("p").data(data).enter().append("p").text(function(elem) {
-//             return "[ " + elem.Food + ": " + elem.Deliciousness + " ]";
-//     });
-// });
-
-svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "scatter");
+var svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
 
 svg.selectAll("circle").data(scatter_dataset).enter().append("circle").attr("cx", function (d) {
-    return d[0];
+    return scatter_xscale(d[0]);
 }).attr("cy", function (d) {
-    return d[1];
+    return scatter_yscale(d[1]);
 }).attr("r", function (d) {
-    return Math.sqrt(height - d[1]);
-});
-
-svg.selectAll("#scatter > text").data(scatter_dataset).enter().append("text").text(function (d) {
-    return d[0] + ", " + d[1];
-}).attr("x", function (d) {
-    return d[0];
-}).attr("y", function (d) {
-    return d[1];
-}).attr("font-family", "sans-serif").attr("font-size", "11px").attr("fill", "red");
+    return scatter_rscale(d[0]);
+}).attr("fill", "blue");
 
 /***/ })
-/******/ ]);
+
+/******/ });

@@ -2,7 +2,8 @@ module.exports = {
     context: __dirname + "/src/js",
     entry: {
         main: "./main",
-        visualizations: "./visualizations"
+        visualizations: "./visualizations",
+        scales: "./scales"
     },
     output: {
         path: __dirname + "/public/js",

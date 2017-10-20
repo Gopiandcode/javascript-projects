@@ -18,7 +18,11 @@ app.get('/', function(req, res) {
 
 app.get('/visualizations', function(req, res) {
     res.render("visualizations");
-})
+});
+
+app.get("/scales", function(req, res) {
+    res.render("scales");
+});
 
 app.listen(config.port, function() {
     console.log("Express server running on port " + config.port + "!");

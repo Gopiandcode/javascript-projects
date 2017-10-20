@@ -3,10 +3,12 @@ let height = 200;
 let barPadding = 1;
 
 let dataset = [];
+let scatter_dataset = [];
 
 
 for(let i = 0; i < 20; i++) {
     dataset.push(Math.floor( Math.random() * 90));
+    scatter_dataset.push([Math.floor(Math.random()*width),Math.floor(Math.random() * height)]);
 }
 
 let svg = d3.select("body").append("svg");
@@ -75,3 +77,28 @@ svg.selectAll("rect").data(dataset).enter().append("rect")
 //             return "[ " + elem.Food + ": " + elem.Deliciousness + " ]";
 //     });
 // });
+
+svg = d3.select("body").append("svg").attr("width", width).attr("height", height).attr("id", "scatter");
+
+
+svg.selectAll("circle").data(scatter_dataset).enter().append("circle")
+    .attr("cx", function(d) {
+        return d[0];
+    })
+    .attr("cy", function(d) {
+        return d[1];
+    })
+    .attr("r", function(d) {
+        return Math.sqrt(height - d[1]);
+    });
+
+svg.selectAll("#scatter > text").data(scatter_dataset).enter().append("text").text(function(d) {return d[0] + ", " + d[1];})
+    .attr("x", function(d) {
+        return d[0];
+    })
+    .attr("y", function(d) {
+        return d[1];
+    })
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "11px")
+    .attr("fill", "red");
