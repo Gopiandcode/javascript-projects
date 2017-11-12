@@ -58,7 +58,6 @@ module.exports = {
     },
     // Plugins for the project
     plugins: [
-        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(paths.SRC, 'index.html')
         }),
